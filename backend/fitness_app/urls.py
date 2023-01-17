@@ -16,6 +16,9 @@ urlpatterns = [
     path('workout_history/', views.workout_history),
     path('new_exercise/', views.new_exercise),
     path('display_workout_history/<int:id>/', views.display_workout_history),
+    path('exercise_db/<str:name>/', views.exercise_db),
+    path('search_exercise_db/<str:name>/', views.search_exercise_db),
+    path('get_quote/', views.get_quote),
     # path('get_quote/', views.get_quote),
     # path('delete_exercise', views.delete_exercise),
 ]

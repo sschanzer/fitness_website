@@ -9,7 +9,11 @@ from datetime import datetime
 from django.core.files.storage import FileSystemStorage
 import requests 
 from datetime import date
+import requests
+import os 
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Create your views here.
 
@@ -215,21 +219,52 @@ def  display_workout_history(request, id):
         return JsonResponse({'success': True})
        
         
-#     if request.method == 'GET':
-#         display_workouts = []
-#         all_workouts = Workouts.objects.filter(user=request.user)
-#         for workout in all_workouts:
-#             workout_dictionary = {'workout':workout.workout_title, 'id':workout.id}
-#             my_exercises = Exercises.objects.filter(workouts=workout)
-#             exercise_list = []
-#             for i in range(len(my_exercises)):
-#                 print('line 102')
-#                 print(my_exercises[i].name)
-#                 my_sets = list(Sets.objects.filter(exercises=my_exercises[i].id).values())
-#                 my_dictionary = {f'exercise':my_exercises[i].name, f'sets':my_sets}
-#                 exercise_list.append(my_dictionary)
-#             workout_dictionary['exercises'] = exercise_list
-#             display_workouts.append(workout_dictionary)
-#         print('display_workouts', display_workouts)
-#         all_workouts = list(all_workouts.values())
-#         return JsonResponse({'all_workouts': display_workouts}) 
+@api_view(['GET'])
+def exercise_db(request, name):
+    url = f"https://exercisedb.p.rapidapi.com/exercises/target/{name}"
+
+    headers = {
+        "X-RapidAPI-Key": os.environ['EXERCISE_DB_KEY'],
+        "X-RapidAPI-Host": "exercisedb.p.rapidapi.com"
+    }
+
+    response = requests.request("GET", url, headers=headers)
+
+    print(response.text)
+    data = json.loads(response.text)
+    return JsonResponse({'response':data})
+
+@api_view(['GET'])
+def search_exercise_db(request, name):
+    url = f"https://exercisedb.p.rapidapi.com/exercises/name/{name}"
+
+    headers = {
+        "X-RapidAPI-Key": os.environ['EXERCISE_DB_KEY'],
+        "X-RapidAPI-Host": "exercisedb.p.rapidapi.com"
+    }
+
+    response = requests.request("GET", url, headers=headers)
+
+    # print(response.text)
+    data = json.loads(response.text)
+    print('DATA ', data)
+    return JsonResponse({'response': data})
+
+@api_view(['GET'])
+def get_quote(request):
+    url = "https://motivational-quotes1.p.rapidapi.com/motivation"
+
+    payload = {
+        "key1": "value",
+        "key2": "value"
+    }
+    headers = {
+        "content-type": "application/json",
+        "X-RapidAPI-Key": os.environ.get("MOTIVATION_KEY"),
+        "X-RapidAPI-Host": "motivational-quotes1.p.rapidapi.com"
+    }
+
+    response = requests.request("POST", url, json=payload, headers=headers)
+    print(response.text)
+    # data = json.loads(response.text)
+    return JsonResponse({'response': response.text})
