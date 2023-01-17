@@ -12,12 +12,14 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "bootstrap": "^5.2.3",
+    "dotenv": "^16.0.3",
     "fortawesome": "^0.0.1-security",
     "mdb-react-ui-kit": "^5.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.4"
+    "react-router-dom": "^6.4.4",
+    "vite-plugin-require": "^1.1.10"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",

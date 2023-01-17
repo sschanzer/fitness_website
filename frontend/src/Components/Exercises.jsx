@@ -30,50 +30,25 @@ function Exercises() {
 "triceps",
 "upper back"
  ])
- const [selectedGroup, setSelectedGroup] = useState(null)
+ const [selectedGroup, setSelectedGroup] = useState([])
  const [searchExercises, setSearchExercises] = useState([])
 
 
-function handleClick(event) {
+async function handleClick(event) {
   console.log(event.target.innerText);
-  const options = {
-    method: 'GET',
-    url: `https://exercisedb.p.rapidapi.com/exercises/target/${event.target.innerText}`,
-    headers: {
-      'X-RapidAPI-Key': process.env.REACT_APP_key1,
-      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-    }
-  };
-  
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-    setSelectedGroup(response.data)
-  }).catch(function (error) {
-    console.error(error);
-  });
-
+  const response = await axios.get(`exercise_db/${event.target.innerText}`)
+  setSelectedGroup(response.data.response); 
 }
 console.log('selected Group:', selectedGroup);
 
 
-function handleSearch(event) {
+async function handleSearch(event) {
   console.log('event.target.innnertext: ', event.target.value);
-  const options = {
-    method: 'GET',
-    url: `https://exercisedb.p.rapidapi.com/exercises/name/${event.target.value}`,
-    headers: {
-      'X-RapidAPI-Key': process.env.REACT_APP_key2,
-      'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
-    }
-  };
+  const response = await axios.get(`search_exercise_db/${event.target.value}`)
+  setSearchExercises(response.data.response)
   
-  axios.request(options).then(function (response) {
-    console.log('response.data: ', response.data);
-    setSearchExercises(response.data) 
-  }).catch(function (error) {
-    console.error(error);
-  });
 }
+console.log('searched exercises:', searchExercises);
 
 
 
@@ -93,22 +68,21 @@ function handleSearch(event) {
   }
   
   function getSelectedMuscle() {
-  if (selectedGroup != null){
-    return selectedGroup.map((target) => {
-      return(<div className='selection'> 
+      return(<div>
+      {selectedGroup.map((target) => (
+        <div className='selection'> 
+
       <h1 className='selection'>{target.name} </h1>
       <MDBBtn onClick={() => handleSelected(target.name)} color='dark'>
         Select Exercise
       </MDBBtn>
       <br/>
       <img className='selection' src= {target.gifUrl}></img>
+      </div>
+      ))}
       </div>)
-    });
   }
-  }
-  // useEffect(()=>{
-  //   getSelectedMuscle()
-  // },[selectedGroup])
+ 
 
 
   function getSearchedMuscle() {

@@ -16,6 +16,22 @@ import Workouts from './Components/Workouts';
 import Exercises from './Components/Exercises';
 import MyWorkouts from './Components/MyWorkouts';
 
+
+// export default {
+// 	plugins: [
+// 		vitePluginRequire({
+// 			// @fileRegex RegExp
+// 			// optional：default file processing rules are as follows
+// 			// fileRegex:/(.jsx?|.tsx?|.vue)$/
+
+//             // Conversion mode. The default mode is import
+//             // importMetaUrl | import
+//             // importMetaUrl see https://vitejs.cn/guide/assets.html#new-url-url-import-meta-url 
+//             // translateType: "importMetaUrl" | "import";
+// 		}),
+// 	],
+// };
+
 function getCookie(name) {
   let cookieValue = null;
   if (document.cookie && document.cookie !== '') {

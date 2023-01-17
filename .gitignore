@@ -163,3 +163,5 @@ backend/static/
 
 .DS_Store
 
+backend/.env
+backend/fitness_app/.env
