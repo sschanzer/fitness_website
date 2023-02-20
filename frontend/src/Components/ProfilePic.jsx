@@ -2,6 +2,8 @@ import React from "react";
 import { MDBBtn } from "mdb-react-ui-kit";
 import axios from "axios";
 
+// The following code allows users to upload a profile picture to their accounts from their local devices
+
 const ImgUpload = ({ onChange, src }) => (
   <label htmlFor="photo-upload" className="custom-file-upload fas">
     <div className="img-wrap img-upload">
